@@ -1,25 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import Products from './containers/products';
+import NavBar from './components/navBar';
+import Favorites from './components/favorites';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <NavBar />
+      <div className="container">
+        <Switch>
+          <Route path="/allProducts" component={Products} />
+          <Route path="/favorites" component={Favorites} />
+          <Redirect from="/" to="/allProducts" />
+        </Switch>
+      </div>
+    </Fragment>
   );
 }
 
