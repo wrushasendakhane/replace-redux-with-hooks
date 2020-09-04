@@ -1,53 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import Product from "../components/product";
-
-function Products() {
-  const [products, setProducts] = useState([
-    {
-      id: "p1",
-      title: "Red Scarf",
-      description: "A pretty red scarf.",
-      isFavorite: false,
-    },
-    {
-      id: "p2",
-      title: "Blue T-Shirt",
-      description: "A pretty blue t-shirt.",
-      isFavorite: false,
-    },
-    {
-      id: "p3",
-      title: "Green Trousers",
-      description: "A pair of lightly green trousers.",
-      isFavorite: false,
-    },
-    {
-      id: "p4",
-      title: "Orange Hat",
-      description: "Street style! An orange hat.",
-      isFavorite: false,
-    },
-  ]);
-
-  const toggleFavorite = (id) => {
-    setProducts((prevState) => {
-      return prevState.map((item) => {
-        const product = { ...item };
-        if (product.id === id) {
-          product.isFavorite = !product.isFavorite;
-        }
-        return product;
-      });
-    });
-  };
-
+import * as actions from "../store/actions/products";
+import { connect } from "react-redux";
+function Products(props) {
   return (
     <div>
-      {products.map((item) => (
-        <Product key={item.id} item={item} toggleFavorite={toggleFavorite} />
+      {props.products.map((item) => (
+        <Product
+          key={item.id}
+          item={item}
+          toggleFavorite={props.onToggleFavorite}
+        />
       ))}
     </div>
   );
 }
 
-export default Products;
+const mapStateToProps = (state) => {
+  return {
+    products: state,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onToggleFavorite: (id) => dispatch(actions.toggleFavorite(id)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Products);

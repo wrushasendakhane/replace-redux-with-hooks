@@ -8,12 +8,14 @@ const Product = (props) => {
         <div className="card-body">
           <h5 className="card-title">{item.title}</h5>
           <p className="card-text">{item.description}</p>
-          <button
-            className="btn btn-danger"
-            onClick={() => toggleFavorite(item.id)}
-          >
-            {item.isFavorite ? "Un-Favorite" : "Favorite"}
-          </button>
+          {toggleFavorite && (
+            <button
+              className="btn btn-danger"
+              onClick={() => toggleFavorite(item.id)}
+            >
+              {item.isFavorite ? "Un-Favorite" : "Favorite"}
+            </button>
+          )}
         </div>
       </div>
     </div>

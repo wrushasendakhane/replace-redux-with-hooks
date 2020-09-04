@@ -1,16 +1,21 @@
 import React from "react";
 import Product from "./product";
-
-const Favorites = () => {
-  const products = [];
+import { connect } from "react-redux";
+const Favorites = (props) => {
   return (
     <div>
-      {products &&
-        products.map(
+      {props.products &&
+        props.products.map(
           (item) => item.isFavorite && <Product key={item.id} item={item} />
         )}
     </div>
   );
 };
 
-export default Favorites;
+const mapStateToProps = (state) => {
+  return {
+    products: state,
+  };
+};
+
+export default connect(mapStateToProps)(Favorites);
