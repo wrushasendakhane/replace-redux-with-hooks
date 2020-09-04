@@ -8,17 +8,23 @@ import { BrowserRouter } from 'react-router-dom';
 import reducer from './store/reducers/products';
 import { createStore, compose } from "redux";
 import { Provider } from "react-redux"
+import ProductContextProvider from './context/productContext';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, composeEnhancers())
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
+    {/* <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </Provider>
+    </Provider> */}
+    <ProductContextProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ProductContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
